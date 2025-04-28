@@ -1,3 +1,6 @@
 [submodule "pack/vendor/start/vim-fugitive"]
 	path = pack/vendor/start/fugitive
 	url = https://github.com/tpope/vim-fugitive
+[submodule "pack/vendor/start/nvim"]
+	path = pack/vendor/start/catppuccin
+	url = https://github.com/catppuccin/nvim.git
