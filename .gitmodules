@@ -7,3 +7,6 @@
 [submodule "pack/vendor/start/nvim-treesitter"]
 	path = pack/vendor/start/treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter.git
+[submodule "pack/vendor/start/kanagawa.nvim"]
+	path = pack/vendor/start/kanagawa.nvim
+	url = https://github.com/rebelot/kanagawa.nvim.git
