@@ -16,3 +16,9 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
+
+-- leader key
+vim.g.mapleader = " "
+
+-- copy paste
+vim.keymap.set('n', '<leader>y', ':let @+ = @"<CR>', { noremap = true });
