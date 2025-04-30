@@ -19,3 +19,9 @@
 [submodule "pack/vendor/start/mason-lspconfig.nvim"]
 	path = pack/vendor/start/mason-lspconfig.nvim
 	url = https://github.com/williamboman/mason-lspconfig.nvim
+[submodule "pack/vendor/start/lazydev.nvim"]
+	path = pack/vendor/start/lazydev.nvim
+	url = https://github.com/folke/lazydev.nvim
+[submodule "pack/vendor/start/blink.cmp"]
+	path = pack/vendor/start/blink.cmp
+	url = https://github.com/Saghen/blink.cmp
