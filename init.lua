@@ -28,3 +28,5 @@ vim.keymap.set('n', '<leader>y', ':let @+ = @"<CR>', { noremap = true });
 
 -- lsp
 require("mason").setup()
+require("mason-lspconfig").setup()
+require("lspconfig").lua_ls.setup{}
