@@ -22,6 +22,3 @@
 [submodule "pack/vendor/start/coq_nvim"]
 	path = pack/vendor/start/coq_nvim
 	url = https://github.com/ms-jpq/coq_nvim
-[submodule "pack/vendor/start/lazydev.nvim"]
-	path = pack/vendor/start/lazydev.nvim
-	url = https://github.com/folke/lazydev.nvim
