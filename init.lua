@@ -25,3 +25,6 @@ vim.g.mapleader = " "
 
 -- copy paste
 vim.keymap.set('n', '<leader>y', ':let @+ = @"<CR>', { noremap = true });
+
+-- lsp
+require("mason").setup()
