@@ -10,3 +10,6 @@
 [submodule "pack/vendor/start/kanagawa.nvim"]
 	path = pack/vendor/start/kanagawa.nvim
 	url = https://github.com/rebelot/kanagawa.nvim.git
+[submodule "pack/vendor/start/mason.nvim"]
+	path = pack/vendor/start/mason.nvim
+	url = https://github.com/williamboman/mason.nvim
