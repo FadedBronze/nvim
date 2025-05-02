@@ -25,3 +25,6 @@
 [submodule "pack/vendor/start/blink.cmp"]
 	path = pack/vendor/start/blink.cmp
 	url = https://github.com/Saghen/blink.cmp
+[submodule "pack/vendor/start/telescope.nvim"]
+	path = pack/vendor/start/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim
