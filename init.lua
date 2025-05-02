@@ -33,6 +33,7 @@ require("mason-lspconfig").setup();
 local lsp_config = require("lspconfig");
 lsp_config.lua_ls.setup{};
 lsp_config.zls.setup{};
+lsp_config.glsl_analyzer.setup{};
 
 -- lua
 ---@diagnostic disable-next-line: missing-fields
@@ -58,3 +59,13 @@ require("blink.cmp").setup{
     },
   }
 }
+
+-- glsl - hack but nessisary rn
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.frag", "*.glsl", "*.vert", "*.geom", "*.comp", "*.tese", "*.tesc" },
+  callback = function()
+    vim.cmd("set filetype=glsl")
+    vim.cmd("TSEnable highlight")
+  end,
+})
+
