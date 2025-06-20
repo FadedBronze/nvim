@@ -28,3 +28,6 @@
 [submodule "pack/vendor/start/telescope.nvim"]
 	path = pack/vendor/start/telescope.nvim
 	url = https://github.com/nvim-telescope/telescope.nvim
+[submodule "pack/vendor/start/render-markdown.nvim"]
+	path = pack/vendor/start/render-markdown.nvim
+	url = https://github.com/MeanderingProgrammer/render-markdown.nvim

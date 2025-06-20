@@ -61,7 +61,7 @@ require("blink.cmp").setup{
     default = { "lazydev", "lsp", "path", "snippets", "buffer" },
     providers = {
       lazydev = {
-        name = "LazyDev",
+        name = "lazydev",
         module = "lazydev.integrations.blink",
         score_offset = 100,
       },
@@ -83,3 +83,40 @@ vim.keymap.set('n', '<leader>ss', builtin.git_status, { desc = '[ ] Find existin
 vim.keymap.set('n', '<leader>sb', builtin.git_branches, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>sc', builtin.git_commits, { desc = '[ ] Find existing buffers' })
 
+local function is_last_window_netrw()
+  local win_count = #vim.api.nvim_list_wins()
+  if win_count ~= 1 then
+    return false
+  end
+
+  local buf = vim.api.nvim_get_current_buf()
+  local ft = vim.api.nvim_buf_get_option(buf, "filetype")
+  return ft == "netrw"
+end
+
+-- open netrw on window close
+vim.api.nvim_create_user_command("Q", function()
+  vim.defer_fn(function()
+    if is_last_window_netrw() then
+        vim.cmd("q")
+        return;
+    end
+
+    if #vim.api.nvim_list_wins() == 1 then
+      vim.cmd("enew")
+      vim.cmd("Explore")
+    else
+      vim.cmd("q")
+    end
+  end, 10)
+end, {})
+
+vim.api.nvim_create_user_command("WQ", function()
+  vim.cmd("w")
+  vim.cmd("Q")
+end, {})
+
+vim.cmd("cnoreabbrev <expr> q getcmdtype() == ':' && getcmdline() == 'q' ? 'Q' : 'q'")
+vim.cmd("cnoreabbrev <expr> wq getcmdtype() == ':' && getcmdline() == 'wq' ? 'WQ' : 'wq'")
+
+require("render-markdown").setup({});
