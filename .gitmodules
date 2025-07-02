@@ -31,3 +31,9 @@
 [submodule "pack/vendor/start/render-markdown.nvim"]
 	path = pack/vendor/start/render-markdown.nvim
 	url = https://github.com/MeanderingProgrammer/render-markdown.nvim
+[submodule "pack/vendor/start/supermaven-nvim"]
+	path = pack/vendor/start/supermaven-nvim
+	url = https://github.com/supermaven-inc/supermaven-nvim.git
+[submodule "pack/vendor/start/neoscroll.nvim"]
+	path = pack/vendor/start/neoscroll.nvim
+	url = https://github.com/karb94/neoscroll.nvim.git

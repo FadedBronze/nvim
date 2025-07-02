@@ -20,6 +20,9 @@ vim.opt.expandtab = true;
 vim.opt.autoindent = true;
 vim.opt.smartindent = true;
 
+vim.opt.number = true;
+vim.opt.relativenumber = true;
+
 -- leader key
 vim.g.mapleader = " ";
 
@@ -46,6 +49,8 @@ require("lazydev").setup{
   },
 };
 
+vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+
 -- glsl - hack but nessisary rn
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.frag", "*.glsl", "*.vert", "*.geom", "*.comp", "*.tese", "*.tesc" },
@@ -55,8 +60,16 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
+local blink = require("blink.cmp");
+
 -- cmp
-require("blink.cmp").setup{
+blink.setup{
+  fuzzy = {
+    implementation = 'prefer_rust',
+    prebuilt_binaries = {
+      download = true,
+    },
+  },
   sources = {
     default = { "lazydev", "lsp", "path", "snippets", "buffer" },
     providers = {
@@ -83,40 +96,48 @@ vim.keymap.set('n', '<leader>ss', builtin.git_status, { desc = '[ ] Find existin
 vim.keymap.set('n', '<leader>sb', builtin.git_branches, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>sc', builtin.git_commits, { desc = '[ ] Find existing buffers' })
 
-local function is_last_window_netrw()
-  local win_count = #vim.api.nvim_list_wins()
-  if win_count ~= 1 then
-    return false
-  end
+-- markdown
+require("render-markdown").setup({});
 
-  local buf = vim.api.nvim_get_current_buf()
-  local ft = vim.api.nvim_buf_get_option(buf, "filetype")
-  return ft == "netrw"
+function get_real_buffers()
+  local real_bufs = {}
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf)
+      and vim.bo[buf].buftype == ""
+      and vim.fn.bufname(buf) ~= "" then
+      table.insert(real_bufs, buf)
+    end
+  end
+  return real_bufs
 end
 
--- open netrw on window close
-vim.api.nvim_create_user_command("Q", function()
-  vim.defer_fn(function()
-    if is_last_window_netrw() then
-        vim.cmd("q")
-        return;
-    end
+function SelectRealBuffer(n)
+  local bufs = get_real_buffers()
+  n = tonumber(n)
+  if bufs[n] then
+    vim.api.nvim_set_current_buf(bufs[n])
+  else
+    print("no buffer at index " .. n)
+  end
+end
 
-    if #vim.api.nvim_list_wins() == 1 then
-      vim.cmd("enew")
-      vim.cmd("Explore")
-    else
-      vim.cmd("q")
-    end
-  end, 10)
-end, {})
+vim.keymap.set('n', '<Leader>1', function () SelectRealBuffer(1) end);
+vim.keymap.set('n', '<Leader>2', function () SelectRealBuffer(2) end);
+vim.keymap.set('n', '<Leader>3', function () SelectRealBuffer(3) end);
+vim.keymap.set('n', '<Leader>4', function () SelectRealBuffer(4) end);
+vim.keymap.set('n', '<Leader>5', function () SelectRealBuffer(5) end);
+vim.keymap.set('n', '<Leader>x', ":w<CR>:bd<CR>");
 
-vim.api.nvim_create_user_command("WQ", function()
-  vim.cmd("w")
-  vim.cmd("Q")
-end, {})
+require("supermaven-nvim").setup({})
 
-vim.cmd("cnoreabbrev <expr> q getcmdtype() == ':' && getcmdline() == 'q' ? 'Q' : 'q'")
-vim.cmd("cnoreabbrev <expr> wq getcmdtype() == ':' && getcmdline() == 'wq' ? 'WQ' : 'wq'")
+local neoscroll = require("neoscroll")
 
-require("render-markdown").setup({});
+neoscroll.setup({
+  mappings = { "<C-u>", "<C-d>", "zz" },
+  easing_function = "quartic",
+});
+
+vim.keymap.set('n', 'L', "L:lua require('neoscroll').zz({ half_win_duration = 250 })<CR>");
+vim.keymap.set('n', 'H', "H:lua require('neoscroll').zz({ half_win_duration = 250 })<CR>");
+
+vim.o.statusline = "%f:%{FugitiveHead()} %m %= %l:%c"
