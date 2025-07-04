@@ -128,7 +128,7 @@ vim.keymap.set('n', '<Leader>4', function () SelectRealBuffer(4) end);
 vim.keymap.set('n', '<Leader>5', function () SelectRealBuffer(5) end);
 vim.keymap.set('n', '<Leader>x', ":w<CR>:bd<CR>");
 
-require("supermaven-nvim").setup({})
+vim.keymap.set('n', '<Leader>mav', function () require("supermaven-nvim").setup({}) end);
 
 local neoscroll = require("neoscroll")
 
