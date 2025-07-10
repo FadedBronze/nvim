@@ -37,3 +37,6 @@
 [submodule "pack/vendor/start/neoscroll.nvim"]
 	path = pack/vendor/start/neoscroll.nvim
 	url = https://github.com/karb94/neoscroll.nvim.git
+[submodule "pack/vendor/start/plenary.nvim"]
+	path = pack/vendor/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim.git
